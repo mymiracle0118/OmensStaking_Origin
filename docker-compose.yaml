@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+  postgres-server:
+    image: mdillon/postgis:11
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=omens
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  graphql-engine:
+    image: hasura/graphql-engine:v2.1.1
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "postgres-server"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:password@postgres-server:5432/omens
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ADMIN_SECRET: adminaccess
+      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
+      HASURA_GRAPHQL_CORS_DOMAIN: "*"
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"RS256", "key":"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1pM3AktZjK5nEb54+K7Y\ny7J4JqYJBGUPRHO8FzLTGN7rPHEZ1+eJrG2J/YsHOJDdyyqo1BAAY0kO0+SsCEs0\nPKXCjCH0RXaTNDiZ88MgnwVfqSJzoiOC/3ts9G+xTNY2fK6HzKULzpBGtPauJi3P\nXswzcmvlgjeJ8jF/jfM1WFjGW7pNpIrxZhMvGoxAi0Cl3JvObO9EXCYwwUzCjrKY\ny/I5ZdrFV4d6Y9ZAfk8lhinSgx0VGq7i2z0dHSzaHAae4FvucvsjPBB+MeN6aydc\nfWa56SexZH2MDvoDZcBb2+4P47LC9YRvUR/CQXZcMonE2x1jgDx5etxb1Mgua3g5\nwQIDAQAB\n-----END PUBLIC KEY-----\n"}'
+volumes:
+  db_data:

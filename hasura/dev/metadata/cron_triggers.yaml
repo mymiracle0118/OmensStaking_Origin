@@ -1,0 +1,35 @@
+- name: 24hour_check
+  webhook: http://host.docker.internal:3006/reward
+  schedule: '* * * * *'
+  include_in_metadata: true
+  payload: {}
+- name: cancel_verification
+  webhook: http://host.docker.internal:3006/cancel_verify
+  schedule: '* * * * *'
+  include_in_metadata: true
+  payload: {}
+- name: check_staking_cancelations
+  webhook: http://host.docker.internal:3006/canceled
+  schedule: '* * * * *'
+  include_in_metadata: true
+  payload: {}
+- name: check_staking_completion
+  webhook: http://host.docker.internal:3006/staked
+  schedule: '* * * * *'
+  include_in_metadata: true
+  payload: {}
+- name: check_staking_pending_completions
+  webhook: http://host.docker.internal:3006/stake_pending
+  schedule: '* * * * *'
+  include_in_metadata: true
+  payload: {}
+- name: check_staking_transactions
+  webhook: http://host.docker.internal:3006/pending
+  schedule: '* * * * *'
+  include_in_metadata: true
+  payload: {}
+- name: restake_check
+  webhook: http://host.docker.internal:3006/restaked
+  schedule: '* * * * *'
+  include_in_metadata: true
+  payload: {}

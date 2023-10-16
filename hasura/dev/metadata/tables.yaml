@@ -1,0 +1,93 @@
+- table:
+    schema: public
+    name: items
+  insert_permissions:
+  - role: anonymous
+    permission:
+      check: {}
+      columns:
+      - mint
+      - metadata
+      - is_listed
+      - price
+      - allow_offers
+      - current_owner
+      - type
+      - in_rem
+      backend_only: false
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - allow_offers
+      - in_rem
+      - is_listed
+      - price
+      - metadata
+      - current_owner
+      - mint
+      - type
+      filter: {}
+      allow_aggregations: true
+  update_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - allow_offers
+      - in_rem
+      - is_listed
+      - price
+      - metadata
+      - current_owner
+      - mint
+      - type
+      filter: {}
+      check: {}
+- table:
+    schema: public
+    name: missions
+  insert_permissions:
+  - role: anonymous
+    permission:
+      check: {}
+      columns:
+      - id
+      - reward
+      - wallet
+      - started_at
+      - extract_at
+      - transactions
+      - mints
+      - status
+      - type
+      backend_only: false
+  select_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - reward
+      - mints
+      - transactions
+      - status
+      - type
+      - wallet
+      - extract_at
+      - started_at
+      - id
+      filter: {}
+      allow_aggregations: true
+  update_permissions:
+  - role: anonymous
+    permission:
+      columns:
+      - reward
+      - mints
+      - transactions
+      - status
+      - type
+      - wallet
+      - extract_at
+      - started_at
+      - id
+      filter: {}
+      check: {}
